@@ -20,7 +20,7 @@ public class Main {
 
         int digitSum = tens + units; // сума цифр
 
-        System.out.println("Сума цифр числа " + twoDigitNumber + " = " + digitSum);
+        System.out.println("сума цифр числа " + twoDigitNumber + " = " + digitSum);
 
         // завдання 3: округлення числа без Math.round()
         System.out.println("\nзавдання 3");
