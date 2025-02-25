@@ -20,11 +20,11 @@ public class Main {
 
         int digitSum = tens + units; // сума цифр
 
-        System.out.println("сума цифр числа " + twoDigitNumber + " = " + digitSum);
+        System.out.println("Сума цифр числа " + twoDigitNumber + " = " + digitSum);
 
         // завдання 3: округлення числа без Math.round()
         System.out.println("\nзавдання 3");
-        double decimalValue = 19.6; // число з дробовою частиною
+        double decimalValue = 19.6; // число з дробовою частино
 
         // округлення вручну: додаємо 0.5 і відкидаємо дробову частину
         int roundedValue = (int) (decimalValue + 0.5);
