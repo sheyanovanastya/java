@@ -6,7 +6,7 @@ public class Main {
         Random rand = new Random();
 
         //завдання 1
-        System.out.println("завдання 1");
+        System.out.println("Завдання 1");
         int[] oddNumbers = new int[50];
         for (int i = 0; i < 50; i++) {
             oddNumbers[i] = 2 * i + 1;
