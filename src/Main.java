@@ -1,29 +1,75 @@
-import java.util.List;
-import java.util.Comparator;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Main {
+
+    //спосіб 1
+    private static final Function<Integer, String> gradeToText1 = grade -> {
+        if (grade >= 89) return "відмінно";
+        if (grade >= 75) return "добре";
+        if (grade >= 51) return "задовільно";
+        return "незадовільно";
+    };
+
+    //спосіб 2
+    private static String convertGrade(Integer grade) {
+        if (grade >= 89) return "відмінно";
+        if (grade >= 75) return "добре";
+        if (grade >= 51) return "задовільно";
+        return "незадовільно";
+    }
+
+    //метод Function
+    public static void testGradeFunction(Function<Integer, String> function, List<Integer> grades) {
+        for (int grade : grades) {
+            System.out.println("оцінка " + grade + " -> " + function.apply(grade));
+        }
+    }
+
+    //спосіб 1
+    private static final Predicate<Integer> isMasterStudent1 = course -> course >= 5;
+
+    //спосіб 2
+    private static boolean isMaster(Integer course) {
+        return course >= 5;
+    }
+
+    //метод Predicate
+    public static void testCoursePredicate(Predicate<Integer> predicate, List<Integer> courses) {
+        for (int course : courses) {
+            System.out.println("курс " + course + " -> " + (predicate.test(course) ? "магістр" : "бакалавр"));
+        }
+    }
+
     public static void main(String[] args) {
-        StudentManager manager = new StudentManager();
+        List<Integer> testGrades = Arrays.asList(95, 80, 70, 50);
+        System.out.println("перевірка оцінок:");
+        testGradeFunction(gradeToText1, testGrades);
 
-        manager.addStudent(new Student(1, "Настя", 20, 61.9));
-        manager.addStudent(new Student(2, "Яринка", 18, 77.7));
-        manager.addStudent(new Student(3, "Іра", 19, 92.7));
-        manager.addStudent(new Student(4, "Ніка", 17, 78.1));
+        List<Integer> testCourses = Arrays.asList(1, 2, 5);
+        System.out.println("\nперевірка курсу студента:");
+        testCoursePredicate(isMasterStudent1, testCourses);
 
-        System.out.println("Сортування за середнім балом:");
-        List<Student> sortedByGrade = manager.getSortedStudents(Comparator.naturalOrder());
-        manager.displayStudents(sortedByGrade);
+        List<Integer> grades = Arrays.asList(95, 85, 75, 65, 55, 45);
 
-        System.out.println("\nСортування за ім’ям:");
-        List<Student> sortedByName = manager.getSortedStudents(StudentComparator.byName);
-        manager.displayStudents(sortedByName);
+        //спосіб 1 без Stream
+        List<Integer> passedGrades = new ArrayList<>();
+        for (int grade : grades) {
+            if (grade >= 51) {
+                passedGrades.add(grade);
+            }
+        }
+        System.out.println("\nоцінки без Stream:");
+        for (int grade : passedGrades) {
+            System.out.println(grade + " -> " + gradeToText1.apply(grade));
+        }
 
-        System.out.println("\nСортування за віком:");
-        List<Student> sortedByAge = manager.getSortedStudents(StudentComparator.byAge);
-        manager.displayStudents(sortedByAge);
-
-        System.out.println("\nВидалення студента з ID 2:");
-        manager.removeStudent(2);
-        manager.displayStudents(manager.getSortedStudents(Comparator.naturalOrder()));
+        //спосіб 2 з Stream
+        System.out.println("\nоцінки зі Stream:");
+        grades.stream()
+                .filter(grade -> grade >= 51)
+                .map(gradeToText1)
+                .forEach(System.out::println);
     }
 }
