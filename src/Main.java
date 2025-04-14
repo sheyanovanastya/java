@@ -17,7 +17,7 @@ public class Main {
         if (grade >= 89) return "відмінно";
         if (grade >= 75) return "добре";
         if (grade >= 51) return "задовільно";
-        return "незадовільно";
+        return "Незадовільно";
     }
 
     //метод Function
